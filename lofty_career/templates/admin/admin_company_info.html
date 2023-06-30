@@ -1,0 +1,202 @@
+{% extends "admin/index.html" %}
+
+
+
+{% block content %}
+
+<div class="app-wrapper">
+	    
+	<div class="app-content pt-3 p-md-3 p-lg-4">
+		<div class="container-xl">
+			
+			<h1 class="app-page-title">Admin Account</h1>
+			<div class="row gy-4">
+				<div class="col-12 col-lg-6">
+					<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+						<div class="app-card-header p-3 border-bottom-0">
+							<div class="row align-items-center gx-3">
+								
+								<div class="col-auto">
+                {% if job %}
+               
+				{% if job.employerjob != [] %}
+					{% if job.employerjob.e_comp_photo != None %}
+				<div>
+					<img src='{{url_for("static",filename="uploads/"+job.employerjob.e_comp_photo)}}' width="45" height="80%" viewBox="0 0 16 16" class="bi" >
+				</div>
+				{% else %}
+				<div>
+					<img src='{{url_for("static",filename="images/avatar.png")}}' width="45" height="80%" viewBox="0 0 16 16" class="bi" >
+				</div>
+				{% endif %}
+				{% endif %}
+				
+			</div>
+			<div class="col-auto">
+				<h4>Profile</h4>
+	</div>
+</div>
+
+</div>
+<div class="app-card-body px-4 w-100">
+<div class="item border-bottom py-3">
+	<div class="row justify-content-between align-items-center">
+		
+		<div class="col-auto">
+			<div class="item-label"><strong>Company Name</strong></div>
+			
+		
+			<div class="item-data">
+				<span>
+				{{ job.employerjob.e_company_name }}
+				</span>
+			</div>
+		
+		</div>
+	</div>
+</div>
+<div class="item border-bottom py-3">
+	<div class="row justify-content-between align-items-center">
+		<div class="col-auto">
+			<div class="item-label"><strong>Email</strong></div>
+		
+			<div class="item-data">
+				<span>
+				{{ job.employerjob.employer_email }}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="item border-bottom py-3">
+	<div class="row justify-content-between align-items-center">
+		<div class="col-auto">
+			<div class="item-label"><strong>Company Address</strong></div>
+			<div class="item-data">
+		
+				<span>
+					{{ job.employerjob.e_comp_address }}
+				</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="item border-bottom py-3">
+	<div class="row justify-content-between align-items-center">
+		<div class="col-auto">
+			<div class="item-label"><strong>Company Phone no</strong></div>
+			<div class="item-data">
+		
+				<span>
+					{{ job.employerjob.e_comp_phoneno }}
+					
+				</span>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="item border-bottom py-3">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-auto">
+            <div class="item-label"><strong>Company Website</strong></div>
+            <div class="item-data">
+            {% if job.employerjob.e_comp_website != None %}
+                
+                <span>{{ job.employerjob.e_comp_website }}</span>
+            
+            {% else %}
+                {{ None }}
+            {% endif %}
+		</div>
+	</div>
+
+
+</div>
+
+</div>
+</div>
+</div>
+				</div>
+				 
+<div class="col-12 col-lg-6">
+	<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+		<div class="app-card-header p-3 border-bottom-0">
+			<div class="row align-items-center gx-3">
+				<div class="col-auto">
+					<div>
+						<img src='{{url_for("static",filename="images/14.png")}}' width="30" height="60%" viewBox="0 0 16 16" class="bi" >
+					</div>
+					
+				</div>
+				<div class="col-auto">
+					<h4 class="app-card-title">Jobs</h4>
+				</div>
+			</div>
+		</div>
+		<div class="app-card-body px-4 w-100">
+			
+			<div class="item border-bottom py-3">
+				<div class="row justify-content-between align-items-center">
+					<div class="col-auto">
+						<div class="item-label">
+										  <ol>
+										{% if jobs %}
+										{% for job in jobs %}
+										{% if job.employerjob !=[] %}
+										<li>
+										<a href="{{url_for('admin_jobdesc',id=job.job_id)}}" style="text-decoration: none; color: black;">
+										
+														
+													<div class="row job mb-2 mt-2">
+													 
+															
+																<div class="col-2">
+															{% if job.employerjob.e_comp_logo != None %}
+															<img src='{{url_for("static",filename="uploads/"+job.employerjob.e_comp_logo)}}' alt="logo" width="100%" class="mb-2 mt-1">
+															{% else %}
+															<img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="100%" class="mb-2 mt-1">
+															{% endif %}
+			
+																</div>
+															
+														
+																<div class="col-7">
+															 <span><b>Job Title: </b><br>
+															{{ job.job_title[0:25] }}...</span>
+			
+																</div>
+														
+												<div class="col">
+													<span><b>Status: </b><br>
+														{{ job.job_status }}</span>
+												</div>
+													</div>
+												
+											
+											</a>
+													</li>    
+												   
+													{% endif %}
+													 {% endfor %}
+													  {% endif %}
+													
+												   
+														{% else %}
+													<h2>No Jobs Posted yet</h2>
+												{% endif %}
+											</ol>	
+											</div>
+										</div>
+									</div>
+								
+						</div>
+									</div>
+						</div>
+					</div>
+					
+				</div>
+
+
+{% endblock %}

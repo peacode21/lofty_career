@@ -1,0 +1,252 @@
+            {% extends "user/index.html" %}
+
+
+               <!--Internal stylesheet-->
+                  
+               {% block style %}
+
+    <style type="text/css">
+      div{
+          justify-content:space-between;
+          display:block;
+          text-align: left;
+          min-height:50px;
+      }
+        a{
+          text-decoration: none;
+          color: rgb(255, 253, 253);
+        }
+        a:hover{
+          text-decoration: none;
+        }
+      .acc{
+        
+        text-decoration: none;
+        color: rgb(124, 124, 124);
+      }
+      .acc:hover{
+        text-decoration: none;
+        color: rgb(255, 253, 253);
+      }
+      .navigates{
+          position:sticky;
+          top:0px;
+          background-color: white;
+          
+      }
+      .bodyone{
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .jobt{
+          text-align: left;
+      }
+      .job:hover{
+        color:rgb(0, 0, 0);
+        background-color: rgba(5, 5, 255, 0.158);
+      }
+      .shift{
+        text-align: left;
+      }
+      .prop{
+          text-align: left;
+          border-radius: 5%;
+          border:1px solid rgb(158, 168, 252)
+      }
+      button:hover{
+          
+          border:1px solid rgb(255, 255, 255);
+          background-color: rgb(96, 94, 243);
+          color:white;
+      }
+      .offcanvas:hover{
+          color:white;
+          background-color: rgb(96, 94, 243);
+      }
+      .offcanvas{
+        background-color: black;
+      }
+      .filter{
+        text-align: left;
+        margin-top: 1%;
+        margin-left: 1%;
+        margin-bottom: 1%;
+        border-right: 1px solid grey;
+        border-radius: 10%;
+        box-shadow:7px 6px 5px rgb(53, 52, 52),7px 6px 5px rgb(10, 10, 10);
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+       
+      }
+      .footer{
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      background-color: rgb(0, 0, 0);
+          }
+      .footer_accordion:hover{
+          border:1px solid rgb(255, 255, 255);
+          background-color: rgb(0, 0, 0);
+          color:white;
+      }
+      .footer_end{
+          color:white;
+      }
+        .visuallyhidden {
+            border: 0;
+            clip: rect(0 0 0 0);
+            height: auto;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+            white-space: nowrap;
+            color:#747171
+        }
+        .number{
+            color:blue
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #eee;
+            margin-top: 1em;
+            padding-top: .5em;
+        }
+
+        .pagination {
+            list-style: none;
+            display: flex;
+        }
+
+        .pagination li {
+            margin: 0 1px;
+        }
+
+        .pagination a {
+            display: block;
+            padding: .5em 1em;
+            border: 1px solid #999;
+            border-radius: .2em;
+            text-decoration: none;
+        }
+
+        .pagination a[aria-current="page"] {
+            background-color: #333;
+            color: #fff;
+        }
+        .title{
+            text-align: center;
+        }
+  </style>
+
+
+            {% endblock style %}
+
+
+            <!--Content Filter-->
+
+            {% block form %}
+
+    <!--Search tool-->
+    <div class="row mt-2" style="justify-content: center;">
+    <div class="col-md-8">
+        <form class="d-flex mt-2" method="POST" action="{{ url_for('search')}}" >
+        <div class="col-md">
+        <input class="border-dark form-control me-2" aria-label="Search" name="searched" type="search" placeholder="Find jobs using titles...">
+        
+        <button class="btn btn-outline-dark mt-2 mb-2 col-md-12" type="submit">Find Jobs</button>
+        </div>
+            </form>
+    </div>
+</div>
+                                 
+
+
+<div class=" row bg-light" style="min-height: 250px;">
+    {% with m=get_flashed_messages() %}
+    {% if m: %}
+    {% for msg in m:%}
+    <p class="alert alert-light">{{msg}}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h2 class="title mt-3">Active Jobs</h2>
+<hr>
+
+<div class=" col mt-5 mb-3 px-5 app-content navbar-nav-scroll">
+            <div class="row">
+                    
+
+
+                        <!--Content Jobs-->
+
+<div class="col">
+{% if job %}
+    {% for j in job %}
+        <a href="{{url_for('description',id=j.job_id)}}" style="text-decoration: none; color: #333;">
+    <div class="row job mb-2 mt-2">
+        <div class="col jobt">
+            <div class="row">
+                <div class="col-4">
+                    
+            {% if j.employerjob.e_comp_logo != None %}
+          <img src='{{url_for("static",filename="uploads/"+j.employerjob.e_comp_logo)}}' alt="logo" width="100%" class="mb-2 mt-1">
+          {% else %}
+          <img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="100%" class="mb-2 mt-1">
+          {% endif %}
+            
+                </div>
+                <div class="col-8">
+            <span><b>Job Title: </b><br>
+            <b>{{ j.job_title[0:15] }}...</b></span>
+
+                    
+                </div>
+            </div>
+         </div>
+            <div class="col">
+                <span><b>Company Name: </b>
+            {{ j.employerjob.e_company_name }}</span>
+        </div>
+        <div class="col">
+            <span><b>Working Schedule</b><br>
+                {{ j.job_workhours }}</span>
+        </div>
+        <div class="col">
+            <span><b>Min Exp Required: </b><br>
+                {{ j.job_exp_required[0:9] }}...</span>
+        </div>
+        <div class="col">
+            <span><b>Job Type: </b><br>
+                {{ j.job_type }}</span>
+        </div>
+        <div class="col">
+            <span><b>LGA: </b>
+            {{ j.joblga.lga_name }}</span>
+        </div>
+        <div class="col">
+
+            <span style="font-size: 16px;"><b>Date Posted:</b> <br><i>{{ j.job_postdate }}</i></span>
+         </div>
+    </div>
+    </a>
+                       <hr>             
+                                    
+                                    
+                                    
+                                    
+                                        {% endfor %}
+
+                                        
+                {% else %}
+                <h2>No Jobs Posted yet,Please be patient with us as jobs will be posted soon</h2>
+                                {% endif %}
+                            </div>
+                        
+            </div>
+</div>
+</div>
+            {% endblock %}
+
+

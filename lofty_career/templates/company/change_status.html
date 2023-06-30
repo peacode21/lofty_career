@@ -1,0 +1,67 @@
+{% extends "company/index.html" %}
+
+
+{% block content %}
+
+<div class="mx-1 row" style="background-color: rgba(255, 247, 238, 0.829);">
+    <div class="col-md-9">
+      
+    <div class="row-md-9">
+        {% with m=get_flashed_messages()%}
+        {% if m:%}
+          {% for msg in m:%}
+            <p class="alert alert-danger">{{msg}}</p>
+          {%endfor%}
+        {% endif %}
+        {% endwith %}
+
+
+
+
+        {% if job %}
+         <div class="col" style="text-align: center;">
+
+            {% if job.employerjob.e_comp_logo != None %}
+            <img src='{{url_for("static",filename="uploads/"+job.employerjob.e_comp_logo)}}' alt="logo" width="15%" class="mb-2 mt-1">
+            {% else %}
+            <img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="15%" class="mb-2 mt-1">
+            {% endif %}
+        </div>
+            <h1>{{ job.employerjob.e_company_name }}</h1>
+    <div class="col" style="text-align: left;">
+       
+
+        <h3>{{ job.job_title }}</h3>
+        <span style="font-size: 16px;"><b>Posted On </b><i>{{ job.job_postdate }}</i></span> 
+        <p>{{ job.job_workhours }}</p>
+        <hr>
+        <h3>Minimum Experience Required</h3>
+        <p>{{ job.job_exp_required }}</p>
+        <h3>Role</h3>
+        <p>By Joining {{ job.employerjob.e_company_name }}, you'll be in a working department of {{job.job_role}}</p>
+        <h2>Job Description</h2>
+        <p>{{ job.job_description }}</p>
+        <h3>Your Responsibilities:</h3>
+        <p>{{ job.job_responsibilities }}</p>
+        <h3>Status</h3>
+        <form action="{{ url_for('change_status',id=job.job_id)}}" method="post">
+            <select name="status" class="form-control border-dark">
+                <option value="Active" class="form-control border-dark">Active</option>
+                <option value="Inactive" class="form-control border-dark">Inactive</option>
+            </select>
+            <button type="submit" class="btn btn-primary mb-3 mt-2">Change Status</button>
+        </form>
+       
+    </div>
+
+</div>
+</div>
+                
+        {% endif %}
+
+{% endblock %}
+
+
+{% block acc %}
+
+{% endblock %}

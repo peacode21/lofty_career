@@ -1,0 +1,278 @@
+{% extends "user/index.html" %}
+
+   
+{% block style %}
+
+<style type="text/css">
+  div{
+      justify-content:space-between;
+      display:block;
+      text-align: left;
+      min-height:50px;
+  }
+    a{
+      text-decoration: none;
+      color: rgb(255, 253, 253);
+    }
+    a:hover{
+      text-decoration: none;
+    }
+  .acc{
+    
+    text-decoration: none;
+    color: rgb(124, 124, 124);
+  }
+  .acc:hover{
+    text-decoration: none;
+    color: rgb(255, 253, 253);
+  }
+  .navigates{
+      position:sticky;
+      top:0px;
+      background-color: white;
+      
+  }
+  .bodyone{
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .jobt{
+      text-align: left;
+  }
+  .job:hover{
+    color:rgb(0, 0, 0);
+    background-color: rgba(5, 5, 255, 0.158);
+  }
+  .shift{
+    text-align: left;
+  }
+  .prop{
+      text-align: left;
+      border-radius: 5%;
+      border:1px solid rgb(158, 168, 252)
+  }
+  button:hover{
+      
+      border:1px solid rgb(255, 255, 255);
+      background-color: rgb(96, 94, 243);
+      color:white;
+  }
+  .offcanvas:hover{
+      color:white;
+      background-color: rgb(96, 94, 243);
+  }
+  .offcanvas{
+    background-color: black;
+  }
+  .filter{
+    text-align: left;
+    margin-top: 1%;
+    margin-left: 1%;
+    margin-bottom: 1%;
+    border-right: 1px solid grey;
+    border-radius: 10%;
+    box-shadow:7px 6px 5px rgb(53, 52, 52),7px 6px 5px rgb(10, 10, 10);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+   
+  }
+  .footer{
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  background-color: rgb(0, 0, 0);
+      }
+  .footer_accordion:hover{
+      border:1px solid rgb(255, 255, 255);
+      background-color: rgb(0, 0, 0);
+      color:white;
+  }
+  .footer_end{
+      color:white;
+  }
+    .visuallyhidden {
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: auto;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        white-space: nowrap;
+        color:#747171
+    }
+    .number{
+        color:blue
+    }
+    nav {
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid #eee;
+        margin-top: 1em;
+        padding-top: .5em;
+    }
+
+    .pagination {
+        list-style: none;
+        display: flex;
+    }
+
+    .pagination li {
+        margin: 0 1px;
+    }
+
+    .pagination a {
+        display: block;
+        padding: .5em 1em;
+        border: 1px solid #999;
+        border-radius: .2em;
+        text-decoration: none;
+    }
+
+    .pagination a[aria-current="page"] {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
+
+
+        {% endblock style %}
+
+
+{% block form %}
+
+
+<div class="row">
+       
+   
+
+   
+    <div class="col-md-5 bg-light navbar-nav-scroll" style="border-right: 1px solid grey;">
+        <div class="px-4">
+        <h3 class=" mt-3">Recommended Jobs:</h3>
+        <hr>
+ {% if jobs %}
+        {% for j in jobs %}
+            <a href="{{url_for('description',id=j.job_id)}}" style="text-decoration: none; color: #333;">
+            <div class="row job mb-2 mt-2">
+                <div class="col jobt">
+                    
+            <div class="row">
+                <div class="col-6">
+        {% if j.employerjob.e_comp_logo != None %}
+        <img src='{{url_for("static",filename="uploads/"+j.employerjob.e_comp_logo)}}' alt="logo" width="100%" class="mb-2 mt-1">
+        {% else %}
+        <img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="100%" class="mb-2 mt-1">
+        {% endif %}
+                    
+                </div>
+                    <div class="col-6">
+                    <span><b>Job Title: </b><br>
+                        <b>{{ j.job_title[0:6] }}...</b></span>
+                    </div>
+            </div>
+                </div>
+                <div class="col">
+                    
+                    <b><i>{{ j.employerjob.e_company_name[0:5] }}...</i> </b></span>
+                </div>
+                <div class="col">
+                    <span><b>Work Hours:</b><br>
+                        {{ j.job_workhours[0:9] }}...</span>
+                </div>
+                <div class="col">
+                    <span><b>Req:</b>
+                        <br>{{ j.job_exp_required[0:9] }}...</span>
+                </div>
+                <div class="col">
+                    <span><b>Type:</b>
+                        <br>
+                        {{ j.job_type[0:13] }}...
+                    </span>
+                </div>
+                <div class="col">
+                    <span><b>Status: </b>
+                        <br>
+                        {{ j.job_status }}
+                    </span>
+                </div>
+            </div>
+            </a>
+            <hr>
+            {% endfor %}
+            {% endif %}
+            
+            
+        {% if job %}
+            
+    </div> 
+
+ </div>
+
+
+    <div class="col bg-light navbar-nav-scroll">
+        
+<div class="row mt-2 mb-2 mx-2">
+    <div class="col-md-12" style="text-align: center;">
+
+ {% with m=get_flashed_messages() %}
+        {% if m : %}
+        {% for msg in m%}
+        <p class="alert alert-light">{{msg}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        
+
+        {% if job.employerjob.e_comp_logo != None %}
+        <img src='{{url_for("static",filename="uploads/"+job.employerjob.e_comp_logo)}}' alt="logo" width="15%" class="mb-2 mt-1">
+        {% else %}
+        <img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="15%" class="mb-2 mt-1">
+        {% endif %}
+
+    </div>
+        <a href="{{ url_for('company_info',id=job.employerjob.employer_id)}}" style="text-decoration: none;color: #333;"><h1>{{ job.employerjob.e_company_name }}</h1></a>
+        <span style="font-size: 16px;">Posted on <i>{{ job.job_postdate }}</i></span> 
+<div class="col" style="text-align: left;">
+       
+        <h2 class="mt-3">{{ job.job_title }}</h2>
+        
+        <span style="font-size: 16px;"><b>Posted On </b><i>{{ job.job_postdate }}</i></span>
+        <p class="mx-1"><b>{{ job.job_workhours }}</b></p>
+        
+        <hr>
+        <h3>Minimum Experience Required</h3>
+        <p>{{ job.job_exp_required }}</p>
+        <h3>Role</h3>
+        <p>By Joining {{ job.employerjob.e_company_name }}, you'll be in a working department of {{job.job_role}}</p>
+        <h3>Job Description</h3>
+        <p>{{ job.job_description }}</p>
+        <h3>Your Responsibilities:</h3>
+        <p>{{ job.job_responsibilities }}</p>
+        <h3>Status</h3>
+        {% if job.job_status =="Active" %}
+        <button class="btn btn-success">{{ job.job_status }}</button>
+    
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" action="{{ url_for('apply',id=job.job_id)}}">
+                    <label><b>Cover Letter:</b> </label>
+                    <textarea type="text" name="feedback" class="border-dark form-control"></textarea>
+                    <button type="submit" class="btn btn-primary mb-2 mt-2 mx-1">Apply Now</button>
+                </form>
+            </div>
+           </div>
+        {% else %}
+        <button class="btn btn-warning mt-2 mb-2 mx-1">{{ job.job_status }}</button><br>
+        {% endif %}
+    </div>
+           {% endif %}
+           </div> 
+</div>
+
+</div>
+{% endblock %}
+{% block acc %}
+
+{% endblock %}
+

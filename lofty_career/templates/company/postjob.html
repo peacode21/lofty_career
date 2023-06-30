@@ -1,0 +1,338 @@
+{% extends "company/index.html" %}
+
+{% block extra %}
+
+<style type="text/css">
+    .body{
+        background-color: antiquewhite;
+    }
+    .bgs{
+        background-color: rgba(0, 37, 220, 0.038);
+        border-radius: 3%;
+        border:1px solid rgba(0, 0, 0, 0.202);
+        box-shadow:8px 7px 6px rgb(53, 52, 52),8px 7px 6px rgb(10, 10, 10);
+    }
+    .split{
+        border-left: 1px solid rgba(0, 0, 0, 0.202);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.202);
+        border-radius: 3%;
+        box-shadow:8px 7px 6px rgb(53, 52, 52),8px 7px 6px rgb(10, 10, 10);
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col body">
+
+        {% with m=get_flashed_messages()%}
+        {% if m:%}
+          {% for msg in m:%}
+            {{msg|safe}}
+          {%endfor%}
+        {% endif %}
+        {% endwith %}
+        
+        <div class="row mt-5 mb-5">
+            <div class="col-md-7 bgs align-center">
+                <div class="mt-2 mb-2">
+                    <h2>Create Job</h2>
+                </div>
+            
+<form method="post" action="{{ url_for('job_details')}}">
+    <div class="row">
+        <div class="col-md-5 split mb-3">
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Job Category: </label>
+                </div>
+                <div class="col-md-9">
+            <select name="category" class="form-control border-dark" id="jobcat">
+            <option selected value="" class="form-control border-dark">Job Category...</option>
+            {% if jobcat != []  %}
+               {% for x in jobcat %}
+                    <option value="{{ x.job_category_id}}" class="form-control border-dark">{{ x.job_category }}</option>
+                    {% endfor %}
+                    {% endif %}
+                    
+            
+            </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Sub Category: </label>
+                </div>
+                <div class="col-md-9" id="subcat" style="border: 1px solid grey;">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Job Title: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="title" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Experience required: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="exp" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Minimum Education: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="edu" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Job Description: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="desc" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Job Role: </label>
+                </div>
+                <div class="col-md-9">
+            <textarea type="text" name="role" class="form-control mb-2 border-dark"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    <div class="col-md-6 split mb-3">
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Responsibilities: </label>
+                </div>
+                <div class="col-md-8">
+            <input type="text" name="responsibilities" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">State: </label>
+                </div>
+                <div class="col-md-9">
+            <select name="state" class="form-control border-dark" id="state">
+            <option selected value="" class="form-control border-dark">Choose Your State...</option>
+                {% for s in state %}
+
+            <option value="{{ s.state_id }}" class="form-control border-dark">{{ s.state_name }}</option>
+
+                {% endfor %}
+            </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">LGA: </label>
+                </div>
+                    <div class="col-md-9" id="mylga" style="border: 1px solid grey;"></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Work Duration: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="duration" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Salary: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="salary" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Vacancy: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="vacancy" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Type: </label>
+                </div>
+                <div class="col-md-9">
+            <input type="text" name="type" class="form-control border-dark">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md">
+            <div class="row">
+                <div class="col-md-3">
+            <label class="form-group">Job Status: </label>
+                </div>
+                <div class="col-md-9">
+            <select name="status" class="form-control border-dark">
+                <option value="Active" class="form-control border-dark">Active</option>
+                <option value="Inactive" class="form-control border-dark">Inactive</option>
+            </select>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-outline-dark mb-2 mt-2 col-md-8">Post</button>
+    </div>
+
+
+</form>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+{%  block inlinejs %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#jobcat').change(function(){
+        var category = $(this).val()
+        $.ajax({
+            url:"/categories/"+category,
+            type:"GET",
+            success:function(response){
+                $("#subcat").html(response)
+            },
+        error:function(e){
+          console.log(e)
+        }
+
+        })
+        })
+
+
+
+
+
+    $('#state').change(function(){
+        var stateid = $(this).val()
+        $.ajax({
+            url:"/lga/"+stateid,
+            type:"GET",
+            success:function(response){
+                $("#mylga").html(response)
+            },
+        error:function(e){
+          console.log(e)
+        }
+
+        })
+        })
+  })
+
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

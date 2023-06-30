@@ -1,0 +1,209 @@
+{% extends "admin/index.html" %}
+
+
+
+{% block content %}
+
+<div class="row mb-3">
+    <div class="col-md-2"></div>
+    <div class="col-md-9 mx-5">
+
+
+    <div class="bg-light">
+	    
+	    <div class="app-content p-3">
+		    <div class="container mb-3">
+
+<h1 class="app-page-title">My Account</h1>
+{% with m=get_flashed_messages()%}
+{% if m:%}
+  {% for msg in m:%}
+	<p class="alert alert-success">{{msg}}</p>
+  {%endfor%}
+{% endif %}
+{% endwith %}
+<div class="row gy-4">
+<div class="col-12 col-lg-6">
+<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+	<div class=" p-3">
+		<div class="row align-items-center">
+			<div class="col-auto">
+				{% if user !=[] %}
+				{% for user in user %}
+				
+				<div>
+					{% if user.user_photo != None %}
+					<img src='{{ url_for("static",filename="uploads/"+user.user_photo)}}' width="45" height="80%" viewBox="0 0 16 16" class="bi" >
+					{% else %}
+					<img src='{{ url_for("static",filename="images/avatar.png")}}' width="45" height="80%" viewBox="0 0 16 16" class="bi" >
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-auto">
+				<h4>Profile</h4>
+			</div>
+		</div>
+		
+	</div>
+	<div class="app-card-body px-4 w-100">
+		
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Name</strong></div>
+					<div class="item-data">
+						<span>
+							{{ user.user_fname }} {{ user.user_lname }}
+						</span>
+					</div>
+					</div>
+			</div>
+		</div>
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Email</strong></div>
+					<div class="item-data">
+						<span>
+							{{ user.user_email }}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Gender</strong></div>
+					<div class="item-data">
+						<span>
+							{{ user.user_gender }}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Address</strong></div>
+					<div class="item-data">{{ user.user_address }}</div>
+				</div>
+			</div>
+		</div>
+        
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Education</strong></div>
+							{% if user.user_education != None %}
+							<div class="item-data">{{ user.user_education }}</div>
+							{% else %}
+							<div class="item-data">Not Specified</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Phone No</strong></div>
+							<div class="item-data">{{ user.user_phoneno }}</div>
+						</div>
+					</div>
+				</div>
+	</div>
+</div>
+				</div>
+
+
+		<div class="col-12 col-lg-6">
+			<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+			<div class="app-card-header p-3 border-bottom-0">
+				<div class="row align-items-center gx-3">
+					<div class="col-auto">
+						<div>
+							<img src='{{url_for("static",filename="images/14.png")}}' width="30" height="60%" viewBox="0 0 16 16" class="bi" >
+						</div>
+						
+					</div>
+					<div class="col-auto">
+						<h4 class="app-card-title">About</h4>
+					</div>
+				</div>
+			</div>
+			<div class="app-card-body px-4 w-100">
+				
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Experience </strong></div>
+							{% if user.user_experience != None %}
+							<div class="item-data">{{ user.user_experience}}</div>
+							{% else %}
+							<div class="item-data">No Experience</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Past Work</strong></div>
+							{% if user.user_pastwork != None %}
+							<div class="item-data">{{ user.user_pastwork}}</div>
+							{% else %}
+							<div class="item-data">Unavailable</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Skill</strong></div>
+							{% if user.skillacq != [] %}
+							{% for s in user.skillacq %}
+							<div class="item-data">{{ s.skill_name}}</div>
+							{% endfor %}
+							{% else %}
+							<div class="item-data">None</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Resume</strong></div>
+							{% if user.user_resume != None %}
+							<div class="item-data">
+                                <iframe src="{{ url_for('static',filename='resume/'+user.user_resume)}}" width="100%" height="60" viewBox="0 0 16 16" class="bi" ></iframe>
+                            </div>
+							{% else %}
+							<div class="item-data">Unavailable</div>
+							{% endif %}
+						</div>
+					</div>
+										</div>
+                                        
+								<div class="item border-bottom py-3">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto">
+											<div class="item-label"><strong>Location</strong></div>
+											<div class="item-data">{{ user.userlga.lga_name }}</div>
+										</div>
+									</div>
+								</div>
+									   
+									</div>
+					</div>
+	                </div>
+                </div>
+		    </div>
+	   </div>
+	</div>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}

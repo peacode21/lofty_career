@@ -1,0 +1,162 @@
+{% extends "admin/index.html"%}
+
+
+        {% block style %}
+
+
+          <!-- FontAwesome JS-->
+          <script defer src='{{url_for("static",filename="fontawesome/js/all.min.js")}}'></script>
+  
+  
+                      <!--External bootstrap stylesheet-->
+  
+      <link href='{{url_for("static",filename="bootstrap/css/bootstrap.min.css")}}'rel="stylesheet" type="text/css">
+  
+                      <!--External animation sheet-->
+  
+      <link href='{{url_for("static",filename="css/animate.min.css")}}' type="text/css" rel="stylesheet">
+  
+
+
+    <style type="text/css">
+      div{
+          justify-content:space-around;
+          display:block;
+          text-align: center;
+          min-height:50px;
+      }
+        a{
+          text-decoration: none;
+          color: rgb(255, 253, 253);
+        }
+        a:hover{
+          text-decoration: none;
+          color: rgb(231, 231, 253);
+        }
+      .acc{
+        
+        text-decoration: none;
+        color: rgb(124, 124, 124);
+      }
+      .acc:hover{
+        
+        text-decoration: none;
+        color: rgb(255, 253, 253);
+      }
+      .navigates{
+          position:sticky;
+          top:0px;
+          background-color: white;
+          
+      }
+      .bodyone{
+          font-size:30px;
+          font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+      }
+      .shift{
+        text-align: left;
+      }
+      .toggleform{
+        font-size:30px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+
+      .prop{
+          text-align: left;
+          border-radius: 5%;
+          border:1px solid rgb(158, 168, 252)
+      }
+      .body_accordion{
+        border:1px solid rgb(255, 255, 255);
+          background-color: rgb(122, 120, 238);
+          color:white;
+      }
+      button:hover{
+          
+          border:1px solid rgb(255, 255, 255);
+          background-color: rgb(98, 119, 238);
+          color:white;
+      }
+      .offcanvas:hover{
+          color:white;
+          background-color: rgb(96, 94, 243);
+      }
+      .offcanvas{
+        background-color: black;
+      }
+      .footer{
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      background-color: rgb(0, 0, 0);
+          }
+      .footer_accordion:hover{
+          border:1px solid rgb(255, 255, 255);
+          background-color: rgb(0, 0, 0);
+          color:white;
+      }
+      .footer_end{
+          color:white;
+      }
+      
+    .forms{
+        justify-content: center;
+        border: 2px solid rgb(15, 14, 70);
+        border-radius: 13%;
+        background-color: rgba(124, 247, 1, 0.301);
+        color:black;
+    }
+    
+  </style>
+
+  {% endblock style %}
+  
+  
+  {% block header %}
+  
+
+  {% endblock %}
+
+          {% block content %}
+
+                                <!--Login form-->
+
+            
+                                <div class="row form-group animate__animated  animate__zoomIn" id="login">
+                                  <div class="col-md-5 mt-5 mb-5 forms">
+                                    <div class="row">
+                                      <div class="col mt-3 mb-3">
+                                      <h2>Admin Login Form</h2>
+                                      <form class="form-group" method="post" action='{{url_for("admin_login")}}'>
+                                        {% with m=get_flashed_messages() %}
+                                          {% if m:%}
+                                            {% for msg in m:%}
+                                              <p class="alert alert-danger">{{msg}}</p>
+                                            {%endfor%}
+                                          {% endif %}
+                                          {% endwith %}
+                                        <div>
+                                          <label>Email</label>
+                                          <input type="email" placeholder="Input Your Email Address" name="email" class="form-control border-info">
+                                        </div>
+                                        <div>
+                                          <label>Password</label>
+                                          <input type="password" placeholder="Input Your Password" name="pwd" class="form-control border-info">
+                                        </div>
+                                        <div>
+                                          <button type="submit" class="btn btn-success mb-3 mt-3 form-control">login</button>
+
+                                        </div>
+                                      </form>    
+
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                    
+          
+                  {% endblock %}
+
+
+                        

@@ -1,0 +1,3 @@
+vlofty_career/
+instance/
+.gitignore/

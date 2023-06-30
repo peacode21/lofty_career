@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <title>Lofty Career</title>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, 
+        initial-scale=1, shrink-to-fit=no">
+        <meta name="keywords" content="job, job application, remote jobs, tech jobs, developer, programmer, jobs in my area">
+  
+        <meta name="description"content="Lofty Career is a platform where you can get a job, or recommendation, skilled or unskilled easily , huge companies are looking for working minds and team players ">
+  
+    <meta name="author" content="Preston Sodipo">
+      
+          <!-- FontAwesome JS-->
+          <script defer src='{{url_for("static",filename="fontawesome/js/all.min.js")}}'></script>
+  
+  
+                      <!--External bootstrap stylesheet-->
+  
+      <link href='{{url_for("static",filename="bootstrap/css/bootstrap.min.css")}}'rel="stylesheet" type="text/css">
+  
+                      <!--External animation sheet-->
+  
+      <link href='{{url_for("static",filename="css/animate.min.css")}}' type="text/css" rel="stylesheet">
+  
+  
+      
+                      <!--Internal stylesheet-->
+                 {% block extra %}
+        
+                  {% endblock %}
+                  {% block style %}
+  
+      <style type="text/css">
+  
+        
+  
+          div{
+              justify-content:space-around;
+              display:block;
+              text-align: center;
+              min-height:50px;
+          }
+          a{
+            text-decoration: none;
+            color: rgb(255, 253, 253);
+          }
+          a:hover{
+            text-decoration: none;
+            color: rgb(231, 231, 253);
+          }
+        .acc{
+          
+          text-decoration: none;
+          color: rgb(124, 124, 124);
+        }
+        .acc:hover{
+          
+          text-decoration: none;
+          color: rgb(255, 255, 255);
+        }
+  
+          .navigates{
+              position:sticky;
+              top:0px;
+              background-color: white;
+              
+          }
+          .bodyone{
+              font-size:30px;
+              font-family: Verdana, Geneva, Tahoma, sans-serif;
+          }
+          .shift{
+            text-align: left;
+          }
+          .prop{
+              text-align: left;
+              border-radius: 5%;
+              border:1px solid rgb(158, 168, 252)
+          }
+          .body_accordion{
+            border:1px solid rgb(255, 255, 255);
+              background-color: rgb(122, 120, 238);
+              color:white;
+          }
+          button:hover{
+              
+              border:1px solid rgb(255, 255, 255);
+              background-color: rgb(98, 119, 238);
+              color:white;
+          }
+          .offcanvas:hover{
+              color:white;
+              background-color: rgb(96, 94, 243);
+          }
+          .offcanvas{
+            background-color: black;
+          }
+          .footer{
+                  background-repeat:no-repeat;
+                  background-size:cover;
+                  background-position:center;
+                  background-attachment:fixed;
+          background-color: rgb(0, 0, 0);
+              }
+          .footer_accordion:hover{
+              border:1px solid rgb(255, 255, 255);
+              background-color: rgb(0, 0, 0);
+              color:white;
+          }
+          .footer_end{
+              color:white;
+          }
+      </style>
+  
+      {% endblock style %}
+  
+      </head>
+      <body>
+      <div class="container-fluid">
+  
+              {% block navbar %}
+                                <!--Navigation bar-->
+  
+          <div class="row navigates">
+              <div class="col-md-8" id="#top">
+                  <img src='{{url_for("static",filename="images/logo2.png")}}' alt="logo" width="15%">
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary rounded-pill mt-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                  Menu
+                </button>
+                
+                
+              </div>
+          </div>
+  
+              {% endblock %}
+  
+  {% block banner %}
+  
+                              <!--Banner-->
+  
+          <div class="row">
+              <div class="col">
+                  <img src='{{url_for("static",filename="images/banner3.png")}}' width="100%" alt="banner">
+              </div>
+          </div>
+  {% endblock banner %}
+          {% block content %}
+  
+              {% block form %}
+          <div class="col-md-12">
+            {% with m=get_flashed_messages() %}
+            {% if m: %}
+            {% for msg in m:%}
+            <p class="alert alert-secondary">{{msg}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+  
+  
+                              <!--Search tool-->
+  
+      <div class="row mt-2" style="justify-content: center;">
+        <div class="col-md-8">
+            <form class="d-flex mt-2" method="POST" action="{{ url_for('search')}}" >
+            <div class="col-md">
+            <input class="border-dark form-control me-2" aria-label="Search" name="searched" type="search" placeholder="Find jobs using titles...">
+            
+            <button class="btn btn-outline-dark mt-2 mb-2 col-md-12" type="submit">Find Jobs</button>
+            </div>
+                </form>
+        </div>
+    </div>
+          
+  
+                              <!--Form button-->
+  
+          <div class="row">
+              <div class="col-md-12">
+                  <button type="button" class="btn btn-primary mt-2 btn-outline-dark rounded-pill" id="new"><a href="{{url_for('dashboard')}}">All Jobs</a></button>
+              </div>
+          </div>
+  
+          <!--This is an accordion for the body-->
+  
+  <div class="row">
+  <div class="col-md">
+  <div class="accordion" id="accordionExample">
+      <div class="accordion-item body_accordion col-md-12">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            What's New
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              No New Updates Yet...
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item body_accordion col-md-12">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Job Seekers
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+              <p><a href="#headingTwo">Help Center</a></p>
+              <hr>
+              <p><a href="{{url_for('dashboard')}}">Browse Jobs</a></p>
+          </div>
+        </div>
+      </div>
+        
+      <div class="accordion-item body_accordion col-md-12">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              About
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p><a href="#headingThree">About</a></p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  </div>
+  
+                              <!--Popularity of the website-->
+  
+          <div class="row">
+              <div class="col-md animate__animated  animate__zoomIn">
+              <p>
+                  <strong class="bodyone">130k+<br></strong>
+                  <b>Tech jobs</b><br>
+                 <strong class="bodyone"> 3,000,420<br></strong>
+                  <b>Matches Completed</b><br>
+                  <strong class="bodyone">4M+<br></strong>
+                  <b>New-ready Candidates</b>
+              </p>
+          </div>
+          </div>
+  
+                            <!--Extra info's on the body-->
+  
+          <div class="row mb-3">
+              <div class="col-md-6 prop">
+                  <h1>Why Job Seekers And Freelancers Love us</h1>
+                  <p>Unique jobs at startup and companies you can't find elsewhere</p>
+                  <p><img src='{{url_for("static",filename="images/arrow.png")}}' alt="logo" width="5%">Your profile is all you need to apply for a job, one click apply and you're all done, no other unnecessary time wastage</p>
+                  <p><img src='{{url_for("static",filename="images/doc.png")}}' alt="logo" width="5%">All you need to know to job search including reviewing and comparing salary, time and other options upfront when looking</p>
+                  <p><img src='{{url_for("static",filename="images/link.png")}}' alt="logo" width="5%">Connect directly with employers, no middle-man or any other third parties required</p>
+              </div>
+              <div class="col-md-6 prop">
+                  <h1>Why Recruiters Love Us</h1>
+                  <p><img src='{{url_for("static",filename="images/16.png")}}' alt="logo" width="5%">4 million responsive and startup-ready candidates, with all the information you need to vet them</p>
+                  <p><img src='{{url_for("static",filename="images/connect.png")}}' alt="logo" width="5%">Everything you need to improve your recruiting, including filter tools for your company search e.t.c for free</p>
+                  <p><img src='{{url_for("static",filename="images/15.png")}}' alt="logo" width="5%">a free application tracking system, or free integration with any ATS you might already use</p>
+                  <p><img src='{{url_for("static",filename="images/8.png")}}' alt="logo" width="5%">We can also do the vetting for you. We review the worlds best talents and highlight candidates directly to you once a week.</p>
+              </div>
+          </div>
+  
+  
+          {% endblock form %}
+  
+          
+  
+          {% block footer %}
+                            <!--Footer part-->
+  
+          <div class="row footer">
+  
+            <!--This is an accordion for the footer-->
+    {% block acc %}
+            <div class="row" id="down">
+              <div class="col-md">
+                  <div class="accordion" id="accordionExample1">
+                    
+                    <div class="accordion-item footer_accordion">
+                      <h2 class="accordion-header" id="headingFour">
+                        <button class="btn-dark accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Job Seekers
+                          </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample1">
+                          <div class="accordion-footer">
+                              <p>Help Center</p>
+                              <hr>
+                              <p>Browse Jobs</p>
+                          </div>
+                        </div>
+                      </div>
+                       <div class="accordion-item footer_accordion">
+                        <h2 class="accordion-header" id="headingFive">
+                          <button class="btn-dark accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            About
+                          </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample1">
+                          <div class="accordion-footer">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <h2 class="footerheading">Community</h2>
+                                      <p>
+                                          Help/Contact us<br>
+                                          Guidelines<br>
+                                          Terms of use (New)<br>
+                                          Privacy Center<br>
+                                          Cookies<br>
+                                          We don't show or sell your information<br>
+                                          Cookies consent
+                                      </p>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <h2>Work with us</h2>
+                                      <p>Advertisers<br>
+                                      Developers<br>
+                                      Careers<br>
+                                      Contact us: <br>
+                                      09155598422<br>
+                                      oluwamayowasodipo@gmail.com
+                                      
+                                      </p>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+          </div>
+  {% endblock %}
+          {% endblock %}
+
+
+ 
+
+                           <!--Footer end-->
+  
+  
+          <div class="row bg-dark">
+              <div class="col footer_end text-center">
+              <p style="color: azure;">We love privacy. Terms of use. 2023 Peacode Global Inc.</p>
+  
+              <p><a href="#top" style="text-decoration: none; color:white;">Back to top</a></p>
+               </div>
+               </div>
+          </div>
+      </div>
+
+      {% endblock %}
+  
+  
+                            <!--External Jqurey javascript-->
+  
+      <script src='{{url_for("static",filename="js/jquery-3.6.1.min.js")}}' type="text/javascript" language="javascript"></script>
+  
+      <!-- Javascript -->          
+      <script src='{{url_for("static",filename="plugins/popper.min.js")}}'></script>
+      <script src='{{url_for("static",filename="plugins/bootstrap/js/bootstrap.min.js")}}'></script>  
+      
+      <!-- Page Specific JS -->
+      <script src='{{url_for("static",filename="js/app.js")}}'></script> 
+                            <!--Bootstrap JS-->
+      <script src='{{url_for("static",filename="bootstrap/js/bootstrap.bundle.min.js")}}'type="text/javascript"></script>
+  
+        {% block inlinejs %}
+  
+        {% endblock inlinejs %}
+  
+  
+  
+                         <!--This is an offcanvas for the menubar-->
+  
+  {% block offcanvas %}
+  
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+      <div class="offcanvas-header">
+        <img src='{{url_for("static",filename="images/logo2.png")}}' alt="logo" width="20%" class="offcanvas-title" id="offcanvasExampleLabel">
+        <button type="button" class="btn-close bg-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="row">
+          <span class="bodyone shift"><a href="{{url_for('homes')}}">Discover</a></span>
+        </div>
+        <div class="row">
+          <span class="bodyone shift"><a href="{{url_for('dashboard')}}"> Posted Jobs</a></span>
+        </div>
+        <div class="row">
+          <span class="bodyone shift"><a href="{{ url_for('applied')}}">Applied Jobs</a></span>
+        </div>
+        <div class="row">
+          <span class="bodyone shift"><a href="{{url_for('user_profile')}}">Profile</a></span>
+        </div>
+        <div class="row">
+          <span class="bodyone shift"><a href="{{url_for('user_logout')}}">Logout</a></span>
+        </div>
+         
+      </div>
+    </div>
+  
+  {% endblock %}
+  </body>
+  </html>

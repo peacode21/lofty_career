@@ -1,0 +1,256 @@
+{% extends "company/index.html" %}
+
+{% block style %}
+
+
+<script defer src='{{url_for("static",filename="assets/plugins/fontawesome/js/all.min.js")}}'></script>
+    
+
+<link id="theme-style" rel="stylesheet" href='{{url_for("static",filename="assets/css/portal.css")}}'>
+
+
+{% endblock %}
+
+
+{% block banner %}
+
+{% endblock banner %}
+
+{% block navbar %}
+<!--Navigation bar-->
+<div class="row navigates">
+    <div class="col-md-7" id="top">
+        <img src='{{url_for("static",filename="images/logo2.png")}}' alt="logo" width="15%">
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary rounded-pill mt-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        Menu
+      </button>
+      
+      
+    </div>
+</div>
+{% endblock %}
+
+
+{% block content %}
+    <div class="bg-light">
+	    
+	    <div class="app-content p-3">
+		    <div class="container mb-3">
+
+<h1 class="app-page-title">My Account</h1>
+{% with m=get_flashed_messages()%}
+{% if m:%}
+  {% for msg in m:%}
+	<p class="alert alert-success">{{msg}}</p>
+  {%endfor%}
+{% endif %}
+{% endwith %}
+<div class="row gy-4">
+<div class="col-12 col-lg-6">
+<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+	<div class=" p-3">
+		<div class="row align-items-center">
+			<div class="col-auto">
+				{% if jobapp !=[] %}
+				
+				
+				<div>
+					{% if jobapp.jobapp_user.user_photo != None %}
+					<img src='{{ url_for("static",filename="uploads/"+jobapp.jobapp_user.user_photo)}}' width="45" height="80%" viewBox="0 0 16 16" class="bi" >
+					{% else %}
+					<img src='{{ url_for("static",filename="images/avatar.png")}}' width="45" height="80%" viewBox="0 0 16 16" class="bi" >
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-auto">
+				<h4>Profile</h4>
+			</div>
+		</div>
+		
+	</div>
+	<div class="app-card-body px-4 w-100">
+		
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Name</strong></div>
+					<div class="item-data">
+						<span>
+							{{ jobapp.jobapp_user.user_fname }} {{ jobapp.jobapp_user.user_lname }}
+						</span>
+					</div>
+					</div>
+			</div>
+		</div>
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Email</strong></div>
+					<div class="item-data">
+						<span>
+							{{ jobapp.jobapp_user.user_email }}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Gender</strong></div>
+					<div class="item-data">
+						<span>
+							{{ jobapp.jobapp_user.user_gender }}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="item border-bottom py-3">
+			<div class="row justify-content-between align-items-center">
+				<div class="col-auto">
+					<div class="item-label"><strong>Address</strong></div>
+					<div class="item-data">{{ jobapp.jobapp_user.user_address }}</div>
+				</div>
+			</div>
+		</div>
+        
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Education</strong></div>
+							{% if jobapp.jobapp_user.user_education != None %}
+							<div class="item-data">{{ jobapp.jobapp_user.user_education }}</div>
+							{% else %}
+							<div class="item-data">Not Specified</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Phone No</strong></div>
+							<div class="item-data">{{ jobapp.jobapp_user.user_phoneno }}</div>
+						</div>
+					</div>
+				</div>
+	
+				</div>
+			</div>    
+		</div>
+
+
+		<div class="col-12 col-lg-6">
+			<div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+			<div class="app-card-header p-3 border-bottom-0">
+				<div class="row align-items-center gx-3">
+					<div class="col-auto">
+						<div>
+							<img src='{{url_for("static",filename="images/14.png")}}' width="30" height="60%" viewBox="0 0 16 16" class="bi" >
+						</div>
+						
+					</div>
+					<div class="col-auto">
+						<h4 class="app-card-title">About</h4>
+					</div>
+				</div>
+			</div>
+			<div class="app-card-body px-4 w-100">
+				
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Experience </strong></div>
+							{% if jobapp.jobapp_user.user_experience != None %}
+							<div class="item-data">{{ jobapp.jobapp_user.user_experience}}</div>
+							{% else %}
+							<div class="item-data">No Experience</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Past Work</strong></div>
+							{% if jobapp.jobapp_user.user_pastwork != None %}
+							<div class="item-data">{{ jobapp.jobapp_user.user_pastwork}}</div>
+							{% else %}
+							<div class="item-data">Unavailable</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Skill</strong></div>
+							{% if jobapp.jobapp_user.skillacq != [] %}
+							{% for s in jobapp.jobapp_user.skillacq %}
+							<div class="item-data">{{ s.skill_name}}</div>
+							{% endfor %}
+							{% else %}
+							<div class="item-data">None</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="item border-bottom py-3">
+					<div class="row justify-content-between align-items-center">
+						<div class="col-auto">
+							<div class="item-label"><strong>Resume</strong></div>
+							{% if jobapp.jobapp_user.user_resume != None %}
+							<div class="item-data">
+                                <iframe src="{{ url_for('static',filename='resume/'+jobapp.jobapp_user.user_resume)}}" width="100%" height="60" viewBox="0 0 16 16" class="bi" ></iframe>
+                            </div>
+							{% else %}
+							<div class="item-data">Unavailable</div>
+							{% endif %}
+						</div>
+					</div>
+										</div>
+                                        
+								<div class="item border-bottom py-3">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto">
+											<div class="item-label"><strong>Location</strong></div>
+											<div class="item-data">{{ jobapp.jobapp_user.userlga.lga_name }}</div>
+										</div>
+									</div>
+								</div>
+									   
+									</div>
+					</div>
+
+						        </div>
+	                </div>
+                </div>
+			    <h2>Cover Letter</h2>
+				<p>{{ jobapp.j_app_feedback }}</p>
+		    </div>
+	   </div>
+
+{% endif %}
+{% endblock %}
+{% block acc %}
+
+{% endblock %}
+
+{% block inlinejs %}
+ <!-- Javascript -->          
+ <script src='{{url_for("static",filename="assets/plugins/popper.min.js")}}'></script>
+ <script src='{{url_for("static",filename="assets/plugins/bootstrap/js/bootstrap.min.js")}}'></script>  
+
+ <!-- Charts JS -->
+ <script src='{{url_for("static",filename="assets/plugins/chart.js/chart.min.js")}}'></script> 
+ <script src='{{url_for("static",filename="assets/js/index-charts.js")}}'></script> 
+ 
+ <!-- Page Specific JS -->
+ <script src='{{url_for("static",filename="assets/js/app.js")}}'></script> 
+
+{% endblock %}

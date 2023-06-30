@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <title>Admin Dashboard</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="User Interface for the Admin">
+    <meta name="author" content="Preston Sodipo">  
+    {% block style %}
+    <!-- FontAwesome JS-->
+    <script defer src='{{url_for("static",filename="assets/plugins/fontawesome/js/all.min.js")}}'></script>
+    
+    <!-- App CSS -->  
+    <link id="theme-style" rel="stylesheet" href='{{url_for("static",filename="assets/css/portal.css")}}'>
+
+{% endblock %}
+
+</head> 
+
+
+
+<body class="app">   	
+
+{% block header %}
+
+	<header class="app-header fixed-top">	   	            
+		<div class="app-header-inner">  
+			<div class="container-fluid py-2">
+				<div class="app-header-content"> 
+					<div class="row justify-content-between align-items-center">
+					
+					<div class="col-auto">
+						<a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
+							<img src='{{url_for("static",filename="images/logo2.png")}}' width="1em" height="1em" viewBox="0 0 16 16" class="bi" >
+						</a>
+					</div>
+					
+				</div>
+				</div>
+			</div>
+		</div>
+		<div id="app-sidepanel" class="app-sidepanel sidepanel-hidden"> 
+			<div id="sidepanel-drop" class="sidepanel-drop"></div>
+			<div class="sidepanel-inner d-flex flex-column">
+				<a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
+				<div class="app-branding">
+					<a class="app-logo" href='{{url_for("admin_dashboard")}}'><img class="logo-icon me-2" src='{{url_for("static",filename="images/logo2.png")}}' alt="logo">
+						<span class="logo-text">Lofty Career</span></a>
+	
+				</div>
+				<nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
+					<ul class="app-menu list-unstyled accordion" id="menu-accordion">
+						<li class="nav-item">
+							<a class="nav-link" href='{{url_for("admin_dashboard")}}'>
+								<span class="nav-icon">
+									<img src='{{url_for("static",filename="images/home.png")}}' width="1em" height="1em" viewBox="0 0 16 16" class="bi" >
+								 </span>
+								 <span class="nav-link-text">Overview</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href='{{url_for("admin_profile")}}'>
+								<span class="nav-icon">
+									<img src='{{url_for("static",filename="images/profile.png")}}' width="1em" height="1em" viewBox="0 0 16 16" class="bi" >
+								 </span>
+								 <span class="nav-link-text">Profile</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+								<span class="nav-icon">
+									<img src='{{url_for("static",filename="images/help.png")}}' width="1em" height="1em" viewBox="0 0 16 16" class="bi" >
+								 </span>
+								 <span class="nav-link-text">Help</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href='{{url_for("admin_logout")}}'>
+								<span class="nav-icon">
+									<img src='{{url_for("static",filename="images/link.png")}}' width="1em" height="1em" viewBox="0 0 16 16" class="bi" >
+								 </span>
+								 <span class="nav-link-text">Sign Out</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+    
+	{% endblock %}
+
+{% block content %}
+
+<div class="app-wrapper">
+
+<div class="app-content pt-3 p-md-3 p-lg-4">
+<div class="container-xl">
+
+<h1 class="app-page-title">Dashboard</h1>
+
+<!--intro alert text for the dashboard-->
+<div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
+<div class="inner">
+<div class="app-card-body p-3 p-lg-4">
+
+{% with m=get_flashed_messages(with_categories=True) %}
+{% if m:%}
+{% for msg in m:%}
+<p class="alert alert-success">{{msg}}</p>
+{%endfor%}
+{% endif %}
+{% endwith %}
+
+{% if admin_deet !=[] %}
+
+<h3>
+Welcome, {{ admin_deet.admin_fname }} {{ admin_deet.admin_lname }}
+</h3>
+
+{% endif %}
+<div class="row gx-5 gy-3">
+<div class="col-12 col-lg-9">
+
+<div><span>This is the overview of all information concerning this webapp,along with jobs posted and all the companies and users using the functionality of the web app</span></div>
+</div>
+</div>
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+</div>
+</div>
+
+<div class="row g-4 mb-4">
+<div class="col-6 col-md-4">
+<div class="app-card app-card-stat shadow-sm h-100">
+<div class="app-card-body p-3 p-lg-4">
+<h4 class="stats-type mb-1">Total Jobs Posted</h4>
+<div class="stats-figure">128,628</div>
+<div class="stats-meta text-success">
+<span class="bi bi-arrow-up"></span> 20% Productivity
+</div>
+</div>
+<a class="app-card-link-mask" href="#"></a>
+</div>
+</div>
+
+<div class="col-6 col-md-4">
+<div class="app-card app-card-stat shadow-sm h-100">
+<div class="app-card-body p-3 p-lg-4">
+<h4 class="stats-type mb-1">Total Active Companies</h4>
+<div class="stats-figure">4,250</div>
+<div class="stats-meta text-success">
+<span class="bi bi-arrow-down"></span> 5% decrease in activeness </div>
+</div>
+<a class="app-card-link-mask" href="#"></a>
+</div>
+</div>
+<div class="col-6 col-md-4">
+<div class="app-card app-card-stat shadow-sm h-100">
+<div class="app-card-body p-3 p-lg-4">
+<h4 class="stats-type mb-1">Projects</h4>
+<div class="stats-figure">108,003</div>
+<div class="stats-meta">
+Open</div>
+</div>
+<a class="app-card-link-mask" href="#"></a>
+</div>
+</div>
+</div>
+
+<!--All Charts of Improvement-->
+<div class="row g-4 mb-4">
+<div class="col-12 col-md-6">
+<div class="app-card app-card-chart h-100 shadow-sm">
+<div class="app-card-header p-3">
+<div class="row justify-content-between align-items-center">
+<div class="col-auto">
+	<h4 class="app-card-title">Productivity</h4>
+</div>
+</div>
+</div>
+<div class="app-card-body p-3 p-lg-4">
+<div class="mb-3 d-flex">   
+<select class="form-select form-select-sm ms-auto d-inline-flex w-auto">
+	<option value="1" selected>This week</option>
+	<option value="2">Today</option>
+	<option value="3">This Month</option>
+	<option value="4">This Year</option>
+</select>
+</div>
+<div class="chart-container">
+<canvas id="canvas-linechart" ></canvas>
+</div>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-6">
+<div class="app-card app-card-chart h-100 shadow-sm">
+<div class="app-card-header p-3">
+<div class="row justify-content-between align-items-center">
+<div class="col-auto">
+	<h4 class="app-card-title">Jobs Posted Analysis</h4>
+</div>
+</div>
+</div>
+<div class="app-card-body p-3 p-lg-4">
+<div class="mb-3 d-flex">   
+<select class="form-select form-select-sm ms-auto d-inline-flex w-auto">
+	<option value="1" selected>This week</option>
+	<option value="2">Today</option>
+	<option value="3">This Month</option>
+	<option value="3">This Year</option>
+</select>
+</div>
+<div class="chart-container">
+<canvas id="canvas-barchart" ></canvas>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<div class="row g-4 mb-4">
+
+<!--Progression Line Under The Chart-->
+<div class="col-12 col-md-12">
+<div class="app-card app-card-progress-list h-100 shadow-sm">
+<div class="app-card-header p-3">
+<div class="row justify-content-between align-items-center">
+<div class="col-auto">
+	<h4 class="app-card-title">Progression</h4>
+</div>
+</div>
+</div>
+<div class="app-card-body">
+<div class="item p-3">
+<div class="row align-items-center">
+	<div class="col">
+		<div class="title mb-1 ">Job Applied For</div>
+		<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+	</div>
+</div>
+<a class="item-link-mask" href="#"></a>
+</div>
+
+
+<div class="item p-3">
+<div class="row align-items-center">
+	<div class="col">
+		<div class="title mb-1 ">Jobs Under Reviews</div>
+		<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: 34%;" aria-valuenow="34" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+	</div>
+</div>
+<a class="item-link-mask" href="#"></a>
+</div>
+
+<div class="item p-3">
+<div class="row align-items-center">
+	<div class="col">
+		<div class="title mb-1 ">Active Jobs</div>
+		<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: 68%;" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+</div>
+</div>
+<a class="item-link-mask" href="#"></a>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="row g-4 mb-4">
+
+
+<!--Companies list-->
+<div class="col-12 col-md-12">
+	<div class="app-card app-card-progress-list h-100 shadow-sm">
+	<div class="app-card-header p-3">
+	<div class="row justify-content-between align-items-center">
+	<div class="col-auto">
+	<h4 class="app-card-title">List Of Companies Registered</h4>
+	</div>
+	</div>
+	</div>
+	<div class="app-card-body px-4">
+	
+	<div class="intro">
+	<ol>
+	{% if emp !=[] %}
+	{% for e in emp %}
+		<a href="{{ url_for('admin_company_info',id=e.employer_id)}}" style="text-decoration: none;color: #333;">
+	<li>
+		
+	<h6>
+		{% if e.e_comp_logo != None %}
+		<img src='{{url_for("static",filename="uploads/"+e.e_comp_logo)}}' alt="logo" width="7%" class="px-4">
+		{% else %}
+		<img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="7%" class="px-4">
+		{% endif %}
+		<span>{{ e.e_company_name }}</span>
+	</h6>
+	
+	</li>
+	</a>
+	{% endfor %}
+	{% else %}
+	<h5>No Registered Company at the moment</h5>
+	
+	{% endif %}
+	</ol>
+	</div>
+	</div>
+	</div>
+	</div>
+
+
+
+	<!--Users list-->
+	<div class="col-12 col-md-12">
+	<div class="app-card app-card-progress-list h-100 shadow-sm">
+	<div class="app-card-header p-3">
+	<div class="row justify-content-between align-items-center">
+	<div class="col-auto">
+	<h4 class="app-card-title">List Of Users Registered</h4>
+	</div>
+	</div>
+	</div>
+	<div class="app-card-body px-4">
+	
+	<div class="intro">
+	<ol>
+	{% if user !=[] %}
+	{% for u in user %}
+		<a href="{{ url_for('admin_applicant_info',id=u.user_id)}}" style="text-decoration: none;color: #333;">
+	<li>
+		
+				<h6>
+		{% if u.user_photo != None %}
+		<span><img src='{{url_for("static",filename="uploads/"+u.user_photo)}}' alt="logo" width="7%" class="px-4">{{ u.user_fname }} </span><span>{{ u.user_lname }}</span>
+		{% else %}
+		<span><img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="7%" class="px-4">{{ u.user_fname }} </span><span>{{ u.user_lname }}</span>
+		{% endif %}
+	</h6>
+
+	</li>
+</a>
+	{% endfor %}
+	
+	{% else %}
+	<h5>No Registered User at the moment</h5>
+	
+	{% endif %}
+	</ol>
+	</div>
+	</div>
+	</div>
+	</div>
+<div class="row g-4 mb-4">
+
+<!--Jobs List To Approve-->
+<div class="col-12 col-md-12">
+<div class="app-card app-card-basic d-flex flex-column align-items-start shadow-sm">
+<div class="app-card-header p-3 border-bottom-0">
+<div class="row align-items-center gx-3">
+
+<div class="col-auto">
+<h4 class="app-card-title">Jobs To Review</h4>
+
+</div>
+</div>
+
+</div>
+<div class="app-card-body px-4">
+
+<div class="intro">
+
+<div class="row">
+<hr>
+<div class="col navbar-nav-scroll">
+<ol>
+
+{% if job !=[] %}
+{% for j in job %}
+<li>
+<a href="{{url_for('admin_jobdesc',id=j.job_id)}}" style="text-decoration: none; color: black;">
+
+                
+            <div class="row job mb-2 mt-2">
+                <div class="col jobt"> 
+					<div class="row">
+						<div class="col-4">
+					{% if j.employerjob.e_comp_logo != None %}
+					<img src='{{url_for("static",filename="uploads/"+j.employerjob.e_comp_logo)}}' alt="logo" width="100%" class="mb-2 mt-1">
+					{% else %}
+					<img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="100%" class="mb-2 mt-1">
+					{% endif %}
+						</div>
+						<div class="col-8">
+					<span><b>Job Title: </b><br>
+					<b>{{ j.job_title[0:10] }}...</b></span>
+						</div>
+					</div>
+					
+					 
+				 </div>
+				<div class="col">
+					<span><b>Company Name: </b>
+				{{ j.employerjob.e_company_name[0:10] }}...</span>
+			</div>
+					
+			<div class="col">
+				<span><b>Working Schedule</b><br>
+					{{ j.job_workhours[0:10] }}...</span>
+			</div>
+			
+                
+        <div class="col-md-1">
+            <span><b>Status: </b><br>
+                {{ j.job_status }}</span>
+        </div>
+		<div class="col">
+            <span><b>LGA: </b>
+            {{ j.joblga.lga_name }}</span>
+        </div>
+		<div class="col">
+			<span><b>Date Posted: </b></span>
+        <span style="font-size: 16px;"><br><i>{{ j.job_postdate }}</i></span> 
+	</div>
+            </div>
+        
+		<hr>
+	</a>
+            </li>
+            
+                {% endfor %}
+            
+                {% else %}
+            <h2>No Jobs Posted yet</h2>
+        {% endif %}
+	</ol>
+		</div>
+    </div>
+</div>
+										
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+</div>
+
+</div>
+</div>
+	    
+    </div> 					
+
+	{% endblock %}
+ 
+    <!-- Javascript -->          
+    <script src='{{url_for("static",filename="assets/plugins/popper.min.js")}}'></script>
+    <script src='{{url_for("static",filename="assets/plugins/bootstrap/js/bootstrap.min.js")}}'></script>  
+
+    <!-- Charts JS -->
+    <script src='{{url_for("static",filename="assets/plugins/chart.js/chart.min.js")}}'></script> 
+    <script src='{{url_for("static",filename="assets/js/index-charts.js")}}'></script> 
+    
+    <!-- Page Specific JS -->
+    <script src='{{url_for("static",filename="assets/js/app.js")}}'></script> 
+
+	{% block inlinejs %}
+
+	{% endblock %}
+
+</body>
+</html> 
+

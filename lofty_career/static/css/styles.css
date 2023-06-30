@@ -1,0 +1,42 @@
+/*
+Date: 01/Jan/2023
+Program: External CSS Styles
+Author: Preston Sodipo
+*/
+
+
+
+div{
+    justify-content:space-around;
+    display:block;
+    text-align: center;
+    min-height:50px;
+}
+a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+a:hover{
+  text-decoration: none;
+  color: white;
+}
+.navigates{
+    position:sticky;
+    top:0px;
+    background-color: white;
+    
+}
+.bodyone{
+    font-size:30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.prop{
+    text-align: left;
+    border-radius: 5%;
+    border:1px solid rgb(158, 168, 252)
+}
+.body_accordion{
+  border:1px solid rgb(255, 255, 255);
+    background-color: rgb(122, 120, 238);
+    color:white;
+}

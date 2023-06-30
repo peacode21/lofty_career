@@ -1,0 +1,35 @@
+{% extends "user/index.html"%}
+  
+{% block content %}
+<div class="content" style="background-color: white;padding:3em">
+  <h3>Set Profile Picture And Resume!</h3>
+
+  {% with m=get_flashed_messages()%}
+        {% if m:%}
+          {% for msg in m:%}
+            {{msg}}
+          {%endfor%}
+        {% endif %}
+        {% endwith %}
+        
+  <form action="{{ url_for('picture')}}" method="post" enctype="multipart/form-data">
+    <div class="form-group row">
+      <label>Upload Profile Picture</label>
+      <div class="col-md-5">
+          <input type="file" name="pix" class="form-control border-info">
+      </div>
+      <label>Upload Resume</label>
+      <div class="col-md-5">
+          <input type="file" name="resume" class="form-control border-info">
+      </div>
+        <div class="row">
+        <div class="col-md-8">
+            <input type="submit" class="btn btn-outline-success" value="Upload Pix">
+        </div>
+    </div>
+    </div>
+  </form>
+ </div>
+ 
+
+{% endblock %}

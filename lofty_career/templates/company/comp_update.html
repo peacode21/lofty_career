@@ -1,0 +1,141 @@
+{% extends "company/index.html"%}
+
+
+        {% block style %}
+
+    <style type="text/css">
+      div{
+          justify-content:space-around;
+          display:block;
+          text-align: center;
+          min-height:50px;
+      }
+        a{
+          text-decoration: none;
+          color: rgb(255, 253, 253);
+        }
+        a:hover{
+          text-decoration: none;
+          color: rgb(231, 231, 253);
+        }
+      .acc{
+        
+        text-decoration: none;
+        color: rgb(124, 124, 124);
+      }
+      .acc:hover{
+        
+        text-decoration: none;
+        color: rgb(255, 253, 253);
+      }
+      .navigates{
+          position:sticky;
+          top:0px;
+          background-color: white;
+          
+      }
+      .bodyone{
+          font-size:30px;
+          font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+      }
+      .shift{
+        text-align: left;
+      }
+      .toggleform{
+        font-size:30px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+
+      .prop{
+          text-align: left;
+          border-radius: 5%;
+          border:1px solid rgb(158, 168, 252)
+      }
+      .body_accordion{
+        border:1px solid rgb(255, 255, 255);
+          background-color: rgb(122, 120, 238);
+          color:white;
+      }
+      button:hover{
+          
+          border:1px solid rgb(255, 255, 255);
+          background-color: rgb(98, 119, 238);
+          color:white;
+      }
+      .offcanvas:hover{
+          color:white;
+          background-color: rgb(96, 94, 243);
+      }
+      .offcanvas{
+        background-color: black;
+      }
+      .footer{
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      background-color: rgb(0, 0, 0);
+          }
+      .footer_accordion:hover{
+          border:1px solid rgb(255, 255, 255);
+          background-color: rgb(0, 0, 0);
+          color:white;
+      }
+      .footer_end{
+          color:white;
+      }
+      
+    .forms{
+        justify-content: center;
+        border: 2px solid rgb(15, 14, 70);
+        border-radius: 13%;
+        background-color: rgba(80, 80, 250, 0.164);
+    }
+  </style>
+
+  {% endblock style %}
+
+                            
+
+
+          {% block form %}
+<div class="row">
+  
+  {% with m=get_flashed_messages()%}
+        {% if m:%}
+          {% for msg in m:%}
+            {{msg|safe}}
+          {%endfor%}
+        {% endif %}
+        {% endwith %}
+<div class="col-md-6 align-center">
+<form action="{{ url_for('comp_profile_update')}}" method="post">
+  <div class="col">
+    
+      <label>Company's Name</label>
+      <input type="text" placeholder="Input Your Company's Name" name="compname" class="form-control border-info">
+     
+      </div>
+      <div class="col">
+   
+    <label>Company Website</label>
+    <input type="text" placeholder="Input Your Company's Website" name="compweb" class="form-control border-info">
+    </div>
+ 
+      <div class="col">
+   
+    <label>Company's Address</label>
+    <input type="text" placeholder="Input Your Company's Address" name="compadd" class="form-control border-info">
+    </div>
+    <div class="col">
+    <label>Company's Phone no</label>
+    <input type="text" placeholder="Input Your Company's Phone no" name="comp_phoneno" class="form-control border-info">
+    </div>
+    <div class="col">
+        <input type="submit" class="btn mb-2 mt-2 btn-outline-primary" value="Update Profile">
+    </div>
+ 
+</form>
+</div>
+</div>
+{% endblock %}

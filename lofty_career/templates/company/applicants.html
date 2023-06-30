@@ -1,0 +1,90 @@
+{% extends "company/index.html" %}
+
+{% block content %}
+<div class="row" style="background-color: rgba(255, 247, 238, 0.829); min-height: 250px;">
+    <div class="col mt-2 navbar-nav-scroll">
+
+        {% with m=get_flashed_messages() %}
+        {% if m : %}
+        {% for msg in m:%}
+        <p class="alert alert-success">{{msg}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+<h2>All Applicants To Your Job Post</h2>
+<hr>
+            {% if jobapp !=[] %}
+            {% for j in jobapp %}
+                           
+<a href="{{ url_for('applicant_info',id=j.job_application_id)}}" style="text-decoration: none; color: black;">
+    <div class="row job mb-2 mt-2">
+        <div class="col-md-2 jobt"> 
+            <div class="row">
+                <div class="col-4">
+        {% if j.jobapp_user.user_photo != None %}
+          <img src='{{url_for("static",filename="uploads/"+j.jobapp_user.user_photo)}}' alt="logo" width="100%" class="mb-2 mt-1">
+          {% else %}
+          <img src='{{url_for("static",filename="images/avatar.png")}}' alt="logo" width="100%" class="mb-2 mt-1">
+          {% endif %}
+                </div>
+                <div class="col-8">
+            <span><b>Applicant Name: </b><br>
+           <b>{{ j.jobapp_user.user_fname }} {{ j.jobapp_user.user_lname }}</b></span>
+                </div>
+            </div>
+         
+          
+        </div>
+        <div class="col">
+            <span><b>Job Status: </b><br>
+        {{ j.appliedjob.job_status }}</span>
+    </div>
+    <div class="col">
+        <span><b>Job Applied For: </b>
+    {{ j.appliedjob.job_title }}
+            
+</span>
+</div>
+                
+        <div class="col">
+            {% if j.jobapp_user.user_experience != None %}
+            <span><b>Applicant Experience: </b><br>
+                {{ j.jobapp_user.user_experience[0:15] }}...</span>
+                {% else %}
+                <span><b>Applicant Experience: </b><br>
+                    None Specified</span>
+                    {% endif %}
+        </div>
+        <div class="col">
+            <span><b>Applicant Contact No: </b><br>
+                {{ j.jobapp_user.user_phoneno }}</span>
+        </div>
+        <div class="col">
+            <span><b>Gender: </b><br>
+                {{ j.jobapp_user.user_gender }}</span>
+        </div>
+        <div class="col">
+            <span><b>LGA: </b>
+            {{ j.jobapp_user.userlga.lga_name }}</span>
+            </div>
+            <div class="col">
+            <span style="font-size: 16px;"><b>Posted On:</b><br><i>{{ j.j_app_date_applied }}</i></span> 
+
+        </div>
+    </div>
+    </a>
+            <hr>
+            
+            {% endfor %}
+            {% else %}
+            <h2>No Applicants yet, You Can Try Creating Awareness For Your Jobs Posted</h2>
+            {% endif %}
+        </div>
+</div>
+{% endblock %}
+
+{% block acc %}
+
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends "company/index.html"%}
+  
+{% block content %}
+<div class="content" style="background-color: white;padding:3em">
+  <h3>Set Profile Picture And Company Logo!</h3>
+
+  {% with m=get_flashed_messages()%}
+        {% if m:%}
+          {% for msg in m:%}
+            {{msg|safe}}
+          {%endfor%}
+        {% endif %}
+        {% endwith %}
+        
+  <form action="{{ url_for('comp_picture')}}" method="post" enctype="multipart/form-data">
+    <div class="form-group row">
+      <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-12">
+            <label>Company Profile Picture</label>
+            <input type="file" name="pix" class="form-control border-info">
+        </div>
+        <div class="col-md-12">
+            <label>Company Logo</label>
+            <input type="file" name="pic" class="form-control border-info">
+        </div>
+      </div>
+        <div class="row">
+        <div class="col-md-8 mt-2">
+            <input type="submit" class="btn btn-outline-primary" value="Upload">
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+ </div>
+ 
+
+{% endblock %}
